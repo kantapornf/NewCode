@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class Door : Stuff
+public class Door : Stuff , IInteractable
 {
     public Door() {
         Name = "Door";
@@ -17,14 +17,30 @@ public class Door : Stuff
 
     public void Interact(Player player)
     {
-
+        if(isOpen)
+        {
+            StartCoroutine(SlideDoor(door.position - openOffset));
+        }
+        else
+        {
+            StartCoroutine(SlideDoor(door.position + openOffset));
+        }
+        isOpen = !isOpen;
     }
 
     private IEnumerator SlideDoor(Vector3 targetPosition)
     {
+        Vector3 startPosition = door.position;
+        float timeElapaed = 0;
+        while (timeElapaed < 1)
+        {
+            timeElapaed += Time.deltaTime;
+            door.position = Vector3.Lerp(startPosition, targetPosition, timeElapaed);
 
-
-        yield return null;
+            
+            yield return null;
+        }
+        door.position = targetPosition;
     }
 
 }

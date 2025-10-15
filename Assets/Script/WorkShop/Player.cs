@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Character
+public class Player : Character 
 {
     [Header("Hand setting")]
     public Transform RightHand;
@@ -54,7 +54,7 @@ public class Player : Character
         if (isAttacking) {
             animator.SetTrigger("Attack");
             //edit to Idestoryable
-            var e = InFront as Enemy;
+            var e = InFront as Idestoryable;
             if (e != null)
             {
                 e.TakeDamage(Damage);
